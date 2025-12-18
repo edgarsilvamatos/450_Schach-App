@@ -2,11 +2,11 @@
 
 ## Projekt & Infrastruktur
 
-- [ ] Privates Git-Repository erstellen  
-- [ ] Dozent als Collaborator hinzufügen  
-- [ ] Java-/Build-Umgebung einrichten (JDK, Build-Tool)  
-- [ ] CI/CD-Pipeline einrichten (z.B. GitHub Actions / GitLab CI)  
-- [ ] CI so konfigurieren, dass Build **on push** und **on pull request** läuft  
+- [x] Privates Git-Repository erstellen  
+- [x] Herrmann als Collaborator hinzufügen  
+- [x] Java-/Build-Umgebung einrichten (JDK, Build-Tool)  
+- [x] CI/CD-Pipeline einrichten 
+- [x] CI so konfigurieren, dass Build **on push** und **on pull request** läuft  
 - [ ] JaCoCo ins Projekt einbinden  
 - [ ] JaCoCo im CI-Build konfigurieren  
 - [ ] JaCoCo-Report als CI-Artefakt hochladen  
@@ -17,10 +17,10 @@
 - [ ] TDD-Workflow festlegen und konsequent anwenden (Rot–Grün–Refactor)  
 - [ ] Regeln für Pflege des TODO-Files definieren  
   - [ ] Aktuelles Feature immer zuoberst  
-  - [ ] TODO-File nie komplett leer (ausser ganz am Ende)  
+  - [x] TODO-File nie komplett leer (ausser ganz am Ende)  
 - [ ] Commit-Regel: **mindestens ein Commit pro Stunde**  
 - [ ] CI-Regel: Build **mindestens einmal pro Doppelstunde** (idealerweise pro Feature)  
-- [ ] Branch-Strategie definieren (zB Feature-Branches, `main` baut immer)  
+- [x] Branch-Strategie definieren (zB Feature-Branches, `main` baut immer)  
 
 ## Domäne & Grundarchitektur
  
