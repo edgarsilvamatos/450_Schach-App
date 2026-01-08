@@ -83,4 +83,4 @@
 
 - [ ] Anforderungen und Bewertungskriterien regelmässig prüfen  
 - [ ] Finalen Stand vor Abgabe taggen (zB `v1.0`)  
-- [ ] Sicherstellen, dass Projekt bis **2026-01-16 18:00** im Git-Repository vorliegt  
+- [ ] Sicherstellen, dass Projekt bis Freitag **2026-01-16 18:00** im Git-Repository vorliegt  
