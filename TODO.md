@@ -72,12 +72,12 @@
 
 ## Tests & Qualität
 
-- [ ] Teststruktur planen (Unit-, Integrations-, End-to-End-Tests)  
-- [ ] Parametrisierte Tests für wiederkehrende Muster (zB Bewegungen)  
-- [ ] Regelmässiges Refactoring einplanen  
-- [ ] JaCoCo-Report kontrollieren und **>= 80% Line- und Branch-Coverage** erreichen  
-- [ ] Clean Code sicherstellen (auch in Tests)  
+- [x] Teststruktur planen (Unit-, Integrations-, End-to-End-Tests)  
+- [x] Parametrisierte Tests für wiederkehrende Muster (zB Bewegungen)  
+- [x] Regelmässiges Refactoring einplanen  
+- [x] JaCoCo-Report kontrollieren und **>= 80% Line- und Branch-Coverage** erreichen  
+- [x] Clean Code sicherstellen (auch in Tests)  
 
 ## Orga & Abgabe
 
-- [ ] Sicherstellen, dass Projekt bis Freitag **2026-01-16 18:00** im Git-Repository vorliegt  
+- [x] Sicherstellen, dass Projekt bis Freitag **2026-01-16 18:00** im Git-Repository vorliegt  

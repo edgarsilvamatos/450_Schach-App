@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.schachapp.chess.PieceTest" time="0.001" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.schachapp.chess.PieceTest" time="0" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/msopenjdk-current/lib"/>
-    <property name="sun.java.command" value="/workspaces/450_Schach-App/schachapp/target/surefire/surefirebooter13045830112696638696.jar /workspaces/450_Schach-App/schachapp/target/surefire 2026-01-15T15-38-48_845-jvmRun1 surefire10446281134480775579tmp surefire_09948387566078697917tmp"/>
+    <property name="sun.java.command" value="/workspaces/450_Schach-App/schachapp/target/surefire/surefirebooter5993061092930293064.jar /workspaces/450_Schach-App/schachapp/target/surefire 2026-01-15T15-42-03_702-jvmRun1 surefire4831920741383897006tmp surefire_013327352212795128335tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/workspaces/450_Schach-App/schachapp/target/test-classes:/workspaces/450_Schach-App/schachapp/target/classes:/home/vscode/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/vscode/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/workspaces/450_Schach-App/schachapp/target/surefire/surefirebooter13045830112696638696.jar"/>
+    <property name="surefire.real.class.path" value="/workspaces/450_Schach-App/schachapp/target/surefire/surefirebooter5993061092930293064.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.8+9-LTS"/>
     <property name="user.name" value="vscode"/>
@@ -55,6 +55,6 @@
     <property name="java.class.version" value="65.0"/>
   </properties>
   <testcase name="toStringContainsColorAndType" classname="com.schachapp.chess.PieceTest" time="0"/>
-  <testcase name="kingAndLoverFlagsWork" classname="com.schachapp.chess.PieceTest" time="0.001"/>
+  <testcase name="kingAndLoverFlagsWork" classname="com.schachapp.chess.PieceTest" time="0"/>
   <testcase name="unicodeSymbolsMatchPieceAndColor" classname="com.schachapp.chess.PieceTest" time="0"/>
 </testsuite>
