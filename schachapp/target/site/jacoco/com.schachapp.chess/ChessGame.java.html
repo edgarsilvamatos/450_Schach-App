@@ -3,358 +3,329 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-/**
- * Main game class encapsulating board, pieces and move validation.
- */
 public class ChessGame {
 
     private final Board board;
     private Color activeColor;
     private GameStatus status;
-<span class="fc" id="L15">    private final List&lt;Piece&gt; capturedPieces = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L11">    private final List&lt;Piece&gt; capturedPieces = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L17">    private ChessGame(Board board, Color activeColor, GameStatus status) {</span>
-<span class="fc" id="L18">        this.board = board;</span>
-<span class="fc" id="L19">        this.activeColor = activeColor;</span>
-<span class="fc" id="L20">        this.status = status;</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L13">    private ChessGame(Board board, Color activeColor, GameStatus status) {</span>
+<span class="fc" id="L14">        this.board = board;</span>
+<span class="fc" id="L15">        this.activeColor = activeColor;</span>
+<span class="fc" id="L16">        this.status = status;</span>
+<span class="fc" id="L17">    }</span>
 
     public static ChessGame newGame() {
-<span class="fc" id="L24">        Board board = new Board();</span>
-<span class="fc" id="L25">        setupInitialPosition(board);</span>
-<span class="fc" id="L26">        return new ChessGame(board, Color.WHITE, GameStatus.NORMAL);</span>
+<span class="fc" id="L20">        Board board = new Board();</span>
+<span class="fc" id="L21">        setupInitialPosition(board);</span>
+<span class="fc" id="L22">        return new ChessGame(board, Color.WHITE, GameStatus.NORMAL);</span>
     }
 
     public Board getBoard() {
-<span class="fc" id="L30">        return board;</span>
+<span class="fc" id="L26">        return board;</span>
     }
 
     public Color getActiveColor() {
-<span class="fc" id="L34">        return activeColor;</span>
+<span class="fc" id="L30">        return activeColor;</span>
     }
 
     public GameStatus getStatus() {
-<span class="nc" id="L38">        return status;</span>
+<span class="fc" id="L34">        return status;</span>
     }
 
     public List&lt;Piece&gt; getCapturedPieces() {
-<span class="nc" id="L42">        return Collections.unmodifiableList(capturedPieces);</span>
+<span class="fc" id="L38">        return Collections.unmodifiableList(capturedPieces);</span>
     }
 
-    /**
-     * Execute a move if it is legal. Returns true when the move was executed.
-     */
     public boolean playMove(Move move) {
-<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (!isLegalMove(move, activeColor)) {</span>
-<span class="nc" id="L50">            return false;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if (!isLegalMove(move, activeColor)) {</span>
+<span class="fc" id="L43">            return false;</span>
         }
-<span class="nc" id="L52">        executeMove(move);</span>
+<span class="fc" id="L45">        executeMove(move);</span>
 
-        // update game status (simple check detection)
-        // after the move, it is the opponent's turn; if their king is in check, we mark CHECK
-<span class="nc" id="L56">        activeColor = activeColor.opposite();</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (isKingInCheck(activeColor)) {</span>
-<span class="nc" id="L58">            status = GameStatus.CHECK;</span>
+<span class="fc" id="L47">        activeColor = activeColor.opposite();</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (isKingInCheck(activeColor)) {</span>
+<span class="nc" id="L49">            status = GameStatus.CHECK;</span>
         } else {
-<span class="nc" id="L60">            status = GameStatus.NORMAL;</span>
+<span class="fc" id="L51">            status = GameStatus.NORMAL;</span>
         }
-<span class="nc" id="L62">        return true;</span>
+<span class="fc" id="L53">        return true;</span>
     }
 
     private void executeMove(Move move) {
-<span class="nc" id="L66">        Piece moving = board.getPiece(move.getFrom());</span>
-<span class="nc" id="L67">        Piece target = board.getPiece(move.getTo());</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">        if (target != null) {</span>
-<span class="nc" id="L69">            capturedPieces.add(target);</span>
+<span class="fc" id="L57">        Piece moving = board.getPiece(move.getFrom());</span>
+<span class="fc" id="L58">        Piece target = board.getPiece(move.getTo());</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (target != null) {</span>
+<span class="fc" id="L60">            capturedPieces.add(target);</span>
         }
-<span class="nc" id="L71">        board.setPiece(move.getTo(), moving);</span>
-<span class="nc" id="L72">        board.clear(move.getFrom());</span>
-<span class="nc" id="L73">    }</span>
+<span class="fc" id="L62">        board.setPiece(move.getTo(), moving);</span>
+<span class="fc" id="L63">        board.clear(move.getFrom());</span>
+<span class="fc" id="L64">    }</span>
 
-    /**
-     * Sets up the modified rules initial position on a 10x10 board.
-     */
     private static void setupInitialPosition(Board board) {
-        // helper to create pieces
-<span class="fc" id="L80">        Piece wLover = new Piece(Color.WHITE, PieceType.LOVER);</span>
-<span class="fc" id="L81">        Piece wRook = new Piece(Color.WHITE, PieceType.ROOK);</span>
-<span class="fc" id="L82">        Piece wKnight = new Piece(Color.WHITE, PieceType.KNIGHT);</span>
-<span class="fc" id="L83">        Piece wBishop = new Piece(Color.WHITE, PieceType.BISHOP);</span>
-<span class="fc" id="L84">        Piece wQueen = new Piece(Color.WHITE, PieceType.QUEEN);</span>
-<span class="fc" id="L85">        Piece wKing = new Piece(Color.WHITE, PieceType.KING);</span>
-<span class="fc" id="L86">        Piece wPawn = new Piece(Color.WHITE, PieceType.PAWN);</span>
+<span class="fc" id="L67">        Piece wLover = new Piece(Color.WHITE, PieceType.LOVER);</span>
+<span class="fc" id="L68">        Piece wRook = new Piece(Color.WHITE, PieceType.ROOK);</span>
+<span class="fc" id="L69">        Piece wKnight = new Piece(Color.WHITE, PieceType.KNIGHT);</span>
+<span class="fc" id="L70">        Piece wBishop = new Piece(Color.WHITE, PieceType.BISHOP);</span>
+<span class="fc" id="L71">        Piece wQueen = new Piece(Color.WHITE, PieceType.QUEEN);</span>
+<span class="fc" id="L72">        Piece wKing = new Piece(Color.WHITE, PieceType.KING);</span>
+<span class="fc" id="L73">        Piece wPawn = new Piece(Color.WHITE, PieceType.PAWN);</span>
 
-<span class="fc" id="L88">        Piece bLover = new Piece(Color.BLACK, PieceType.LOVER);</span>
-<span class="fc" id="L89">        Piece bRook = new Piece(Color.BLACK, PieceType.ROOK);</span>
-<span class="fc" id="L90">        Piece bKnight = new Piece(Color.BLACK, PieceType.KNIGHT);</span>
-<span class="fc" id="L91">        Piece bBishop = new Piece(Color.BLACK, PieceType.BISHOP);</span>
-<span class="fc" id="L92">        Piece bQueen = new Piece(Color.BLACK, PieceType.QUEEN);</span>
-<span class="fc" id="L93">        Piece bKing = new Piece(Color.BLACK, PieceType.KING);</span>
-<span class="fc" id="L94">        Piece bPawn = new Piece(Color.BLACK, PieceType.PAWN);</span>
+<span class="fc" id="L75">        Piece bLover = new Piece(Color.BLACK, PieceType.LOVER);</span>
+<span class="fc" id="L76">        Piece bRook = new Piece(Color.BLACK, PieceType.ROOK);</span>
+<span class="fc" id="L77">        Piece bKnight = new Piece(Color.BLACK, PieceType.KNIGHT);</span>
+<span class="fc" id="L78">        Piece bBishop = new Piece(Color.BLACK, PieceType.BISHOP);</span>
+<span class="fc" id="L79">        Piece bQueen = new Piece(Color.BLACK, PieceType.QUEEN);</span>
+<span class="fc" id="L80">        Piece bKing = new Piece(Color.BLACK, PieceType.KING);</span>
+<span class="fc" id="L81">        Piece bPawn = new Piece(Color.BLACK, PieceType.PAWN);</span>
 
-        // White back rank (rank 1 -&gt; internal rank 0)
-        // Lover A1, Rook B1, Knight C1, Bishop D1, Queen E1, King F1, Bishop G1, Knight H1, Rook I1, extra Rook J1
-<span class="fc" id="L98">        board.setPiece(Position.fromAlgebraic(&quot;A1&quot;), wLover);</span>
-<span class="fc" id="L99">        board.setPiece(Position.fromAlgebraic(&quot;B1&quot;), wRook);</span>
-<span class="fc" id="L100">        board.setPiece(Position.fromAlgebraic(&quot;C1&quot;), wKnight);</span>
-<span class="fc" id="L101">        board.setPiece(Position.fromAlgebraic(&quot;D1&quot;), wBishop);</span>
-<span class="fc" id="L102">        board.setPiece(Position.fromAlgebraic(&quot;E1&quot;), wQueen);</span>
-<span class="fc" id="L103">        board.setPiece(Position.fromAlgebraic(&quot;F1&quot;), wKing);</span>
-<span class="fc" id="L104">        board.setPiece(Position.fromAlgebraic(&quot;G1&quot;), wBishop);</span>
-<span class="fc" id="L105">        board.setPiece(Position.fromAlgebraic(&quot;H1&quot;), wKnight);</span>
-<span class="fc" id="L106">        board.setPiece(Position.fromAlgebraic(&quot;I1&quot;), wRook);</span>
-<span class="fc" id="L107">        board.setPiece(Position.fromAlgebraic(&quot;J1&quot;), wRook);</span>
+<span class="fc" id="L83">        board.setPiece(Position.fromAlgebraic(&quot;A1&quot;), wLover);</span>
+<span class="fc" id="L84">        board.setPiece(Position.fromAlgebraic(&quot;B1&quot;), wRook);</span>
+<span class="fc" id="L85">        board.setPiece(Position.fromAlgebraic(&quot;C1&quot;), wKnight);</span>
+<span class="fc" id="L86">        board.setPiece(Position.fromAlgebraic(&quot;D1&quot;), wBishop);</span>
+<span class="fc" id="L87">        board.setPiece(Position.fromAlgebraic(&quot;E1&quot;), wQueen);</span>
+<span class="fc" id="L88">        board.setPiece(Position.fromAlgebraic(&quot;F1&quot;), wKing);</span>
+<span class="fc" id="L89">        board.setPiece(Position.fromAlgebraic(&quot;G1&quot;), wBishop);</span>
+<span class="fc" id="L90">        board.setPiece(Position.fromAlgebraic(&quot;H1&quot;), wKnight);</span>
+<span class="fc" id="L91">        board.setPiece(Position.fromAlgebraic(&quot;I1&quot;), wRook);</span>
+<span class="fc" id="L92">        board.setPiece(Position.fromAlgebraic(&quot;J1&quot;), wRook);</span>
 
-        // White pawns on rank 2 (A2..J2)
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        for (char file = 'A'; file &lt;= 'J'; file++) {</span>
-<span class="fc" id="L111">            board.setPiece(Position.fromAlgebraic(file + &quot;2&quot;), wPawn);</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        for (char file = 'A'; file &lt;= 'J'; file++) {</span>
+<span class="fc" id="L95">            board.setPiece(Position.fromAlgebraic(file + &quot;2&quot;), wPawn);</span>
         }
 
-        // Black back rank on 10th rank:
-        // extra Rook A10, Rook B10, Knight C10, Bishop D10, King E10, Queen F10, Bishop G10, Knight H10, Rook I10, Lover J10
-<span class="fc" id="L116">        board.setPiece(Position.fromAlgebraic(&quot;A10&quot;), bRook);</span>
-<span class="fc" id="L117">        board.setPiece(Position.fromAlgebraic(&quot;B10&quot;), bRook);</span>
-<span class="fc" id="L118">        board.setPiece(Position.fromAlgebraic(&quot;C10&quot;), bKnight);</span>
-<span class="fc" id="L119">        board.setPiece(Position.fromAlgebraic(&quot;D10&quot;), bBishop);</span>
-<span class="fc" id="L120">        board.setPiece(Position.fromAlgebraic(&quot;E10&quot;), bKing);</span>
-<span class="fc" id="L121">        board.setPiece(Position.fromAlgebraic(&quot;F10&quot;), bQueen);</span>
-<span class="fc" id="L122">        board.setPiece(Position.fromAlgebraic(&quot;G10&quot;), bBishop);</span>
-<span class="fc" id="L123">        board.setPiece(Position.fromAlgebraic(&quot;H10&quot;), bKnight);</span>
-<span class="fc" id="L124">        board.setPiece(Position.fromAlgebraic(&quot;I10&quot;), bRook);</span>
-<span class="fc" id="L125">        board.setPiece(Position.fromAlgebraic(&quot;J10&quot;), bLover);</span>
+<span class="fc" id="L98">        board.setPiece(Position.fromAlgebraic(&quot;A10&quot;), bRook);</span>
+<span class="fc" id="L99">        board.setPiece(Position.fromAlgebraic(&quot;B10&quot;), bRook);</span>
+<span class="fc" id="L100">        board.setPiece(Position.fromAlgebraic(&quot;C10&quot;), bKnight);</span>
+<span class="fc" id="L101">        board.setPiece(Position.fromAlgebraic(&quot;D10&quot;), bBishop);</span>
+<span class="fc" id="L102">        board.setPiece(Position.fromAlgebraic(&quot;E10&quot;), bKing);</span>
+<span class="fc" id="L103">        board.setPiece(Position.fromAlgebraic(&quot;F10&quot;), bQueen);</span>
+<span class="fc" id="L104">        board.setPiece(Position.fromAlgebraic(&quot;G10&quot;), bBishop);</span>
+<span class="fc" id="L105">        board.setPiece(Position.fromAlgebraic(&quot;H10&quot;), bKnight);</span>
+<span class="fc" id="L106">        board.setPiece(Position.fromAlgebraic(&quot;I10&quot;), bRook);</span>
+<span class="fc" id="L107">        board.setPiece(Position.fromAlgebraic(&quot;J10&quot;), bLover);</span>
 
-        // Black pawns on rank 9 (A9..J9)
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        for (char file = 'A'; file &lt;= 'J'; file++) {</span>
-<span class="fc" id="L129">            board.setPiece(Position.fromAlgebraic(file + &quot;9&quot;), bPawn);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (char file = 'A'; file &lt;= 'J'; file++) {</span>
+<span class="fc" id="L110">            board.setPiece(Position.fromAlgebraic(file + &quot;9&quot;), bPawn);</span>
         }
-<span class="fc" id="L131">    }</span>
+<span class="fc" id="L112">    }</span>
 
-    /**
-     * Determines whether the given move is legal for the given player,
-     * including basic movement rules and &quot;no self-check&quot;.
-     */
     public boolean isLegalMove(Move move, Color player) {
-<span class="fc" id="L138">        Position from = move.getFrom();</span>
-<span class="fc" id="L139">        Position to = move.getTo();</span>
-<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (from.equals(to)) {</span>
-<span class="nc" id="L141">            return false;</span>
+<span class="fc" id="L115">        Position from = move.getFrom();</span>
+<span class="fc" id="L116">        Position to = move.getTo();</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">        if (from.equals(to)) {</span>
+<span class="nc" id="L118">            return false;</span>
         }
 
-<span class="fc" id="L144">        Piece moving = board.getPiece(from);</span>
-<span class="pc bpc" id="L145" title="2 of 4 branches missed.">        if (moving == null || moving.getColor() != player) {</span>
-<span class="nc" id="L146">            return false;</span>
+<span class="fc" id="L121">        Piece moving = board.getPiece(from);</span>
+<span class="pc bpc" id="L122" title="2 of 4 branches missed.">        if (moving == null || moving.getColor() != player) {</span>
+<span class="nc" id="L123">            return false;</span>
         }
-<span class="fc" id="L148">        Piece dest = board.getPiece(to);</span>
-<span class="pc bpc" id="L149" title="1 of 4 branches missed.">        if (dest != null &amp;&amp; dest.getColor() == player) {</span>
+<span class="fc" id="L125">        Piece dest = board.getPiece(to);</span>
+<span class="fc bfc" id="L126" title="All 4 branches covered.">        if (dest != null &amp;&amp; dest.getColor() == player) {</span>
             // cannot capture own piece
-<span class="nc" id="L151">            return false;</span>
+<span class="fc" id="L128">            return false;</span>
         }
 
-<span class="fc bfc" id="L154" title="All 4 branches covered.">        if (!isBasicMovementAllowed(moving, from, to, dest != null)) {</span>
-<span class="fc" id="L155">            return false;</span>
+<span class="fc bfc" id="L131" title="All 4 branches covered.">        if (!isBasicMovementAllowed(moving, from, to, dest != null)) {</span>
+<span class="fc" id="L132">            return false;</span>
         }
 
-        // simulate move and ensure king is not in check after move
-<span class="pc bpc" id="L159" title="1 of 2 branches missed.">        return !leavesKingInCheck(move, player);</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        return !leavesKingInCheck(move, player);</span>
     }
 
     private boolean leavesKingInCheck(Move move, Color player) {
-        // copy board shallowly
-<span class="fc" id="L164">        Board tmp = new Board();</span>
-<span class="fc bfc" id="L165" title="All 2 branches covered.">        for (int file = 0; file &lt; Board.SIZE; file++) {</span>
-<span class="fc bfc" id="L166" title="All 2 branches covered.">            for (int rank = 0; rank &lt; Board.SIZE; rank++) {</span>
-<span class="fc" id="L167">                Position p = new Position(file, rank);</span>
-<span class="fc" id="L168">                tmp.setPiece(p, board.getPiece(p));</span>
+<span class="fc" id="L139">        Board tmp = new Board();</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        for (int file = 0; file &lt; Board.SIZE; file++) {</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            for (int rank = 0; rank &lt; Board.SIZE; rank++) {</span>
+<span class="fc" id="L142">                Position p = new Position(file, rank);</span>
+<span class="fc" id="L143">                tmp.setPiece(p, board.getPiece(p));</span>
             }
         }
 
-<span class="fc" id="L172">        Piece moving = tmp.getPiece(move.getFrom());</span>
-<span class="fc" id="L173">        tmp.setPiece(move.getTo(), moving);</span>
-<span class="fc" id="L174">        tmp.clear(move.getFrom());</span>
+<span class="fc" id="L147">        Piece moving = tmp.getPiece(move.getFrom());</span>
+<span class="fc" id="L148">        tmp.setPiece(move.getTo(), moving);</span>
+<span class="fc" id="L149">        tmp.clear(move.getFrom());</span>
 
-<span class="fc" id="L176">        Position kingPos = findKing(tmp, player);</span>
-<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        if (kingPos == null) {</span>
-<span class="nc" id="L178">            return false; // should not happen in a normal game</span>
+<span class="fc" id="L151">        Position kingPos = findKing(tmp, player);</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (kingPos == null) {</span>
+<span class="fc" id="L153">            return false;</span>
         }
-<span class="fc" id="L180">        return isSquareAttacked(tmp, kingPos, player.opposite());</span>
+<span class="fc" id="L155">        return isSquareAttacked(tmp, kingPos, player.opposite());</span>
     }
 
     private Position findKing(Board board, Color color) {
-<span class="fc bfc" id="L184" title="All 2 branches covered.">        for (int file = 0; file &lt; Board.SIZE; file++) {</span>
-<span class="fc bfc" id="L185" title="All 2 branches covered.">            for (int rank = 0; rank &lt; Board.SIZE; rank++) {</span>
-<span class="fc" id="L186">                Piece p = board.getPiece(file, rank);</span>
-<span class="fc bfc" id="L187" title="All 6 branches covered.">                if (p != null &amp;&amp; p.getColor() == color &amp;&amp; p.getType() == PieceType.KING) {</span>
-<span class="fc" id="L188">                    return new Position(file, rank);</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        for (int file = 0; file &lt; Board.SIZE; file++) {</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">            for (int rank = 0; rank &lt; Board.SIZE; rank++) {</span>
+<span class="fc" id="L161">                Piece p = board.getPiece(file, rank);</span>
+<span class="fc bfc" id="L162" title="All 6 branches covered.">                if (p != null &amp;&amp; p.getColor() == color &amp;&amp; p.getType() == PieceType.KING) {</span>
+<span class="fc" id="L163">                    return new Position(file, rank);</span>
                 }
             }
         }
-<span class="fc" id="L192">        return null;</span>
+<span class="fc" id="L167">        return null;</span>
     }
 
     public boolean isKingInCheck(Color color) {
-<span class="fc" id="L196">        Position kingPos = findKing(board, color);</span>
-<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (kingPos == null) {</span>
-<span class="fc" id="L198">            return false;</span>
+<span class="fc" id="L171">        Position kingPos = findKing(board, color);</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        if (kingPos == null) {</span>
+<span class="fc" id="L173">            return false;</span>
         }
-<span class="fc" id="L200">        return isSquareAttacked(board, kingPos, color.opposite());</span>
+<span class="fc" id="L175">        return isSquareAttacked(board, kingPos, color.opposite());</span>
     }
 
-    /**
-     * Convenience to check whether the player whose turn it is is currently in check.
-     */
     public boolean isActivePlayerInCheck() {
-<span class="nc" id="L207">        return isKingInCheck(activeColor);</span>
+<span class="fc" id="L179">        return isKingInCheck(activeColor);</span>
     }
 
     private boolean isSquareAttacked(Board board, Position square, Color attackerColor) {
-<span class="fc bfc" id="L211" title="All 2 branches covered.">        for (int file = 0; file &lt; Board.SIZE; file++) {</span>
-<span class="fc bfc" id="L212" title="All 2 branches covered.">            for (int rank = 0; rank &lt; Board.SIZE; rank++) {</span>
-<span class="fc" id="L213">                Position from = new Position(file, rank);</span>
-<span class="fc" id="L214">                Piece p = board.getPiece(from);</span>
-<span class="fc bfc" id="L215" title="All 4 branches covered.">                if (p == null || p.getColor() != attackerColor) {</span>
-<span class="fc" id="L216">                    continue;</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        for (int file = 0; file &lt; Board.SIZE; file++) {</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">            for (int rank = 0; rank &lt; Board.SIZE; rank++) {</span>
+<span class="fc" id="L185">                Position from = new Position(file, rank);</span>
+<span class="fc" id="L186">                Piece p = board.getPiece(from);</span>
+<span class="fc bfc" id="L187" title="All 4 branches covered.">                if (p == null || p.getColor() != attackerColor) {</span>
+<span class="fc" id="L188">                    continue;</span>
                 }
-<span class="pc bpc" id="L218" title="1 of 4 branches missed.">                if (isBasicMovementAllowed(p, from, square, board.getPiece(square) != null)) {</span>
+<span class="pc bpc" id="L190" title="1 of 4 branches missed.">                if (isBasicMovementAllowed(p, from, square, board.getPiece(square) != null)) {</span>
                     // additionally ensure path is clear for sliding pieces
-<span class="pc bpc" id="L220" title="1 of 2 branches missed.">                    if (pathClearForAttacker(board, p, from, square)) {</span>
-<span class="fc" id="L221">                        return true;</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">                    if (pathClearForAttacker(board, p, from, square)) {</span>
+<span class="fc" id="L193">                        return true;</span>
                     }
                 }
             }
         }
-<span class="fc" id="L226">        return false;</span>
+<span class="fc" id="L198">        return false;</span>
     }
 
     /**
      * Only checks the movement pattern / distance rules of a single piece.
      */
     private boolean isBasicMovementAllowed(Piece piece, Position from, Position to, boolean isCapture) {
-<span class="fc" id="L233">        int dx = to.getFile() - from.getFile();</span>
-<span class="fc" id="L234">        int dy = to.getRank() - from.getRank();</span>
-<span class="fc" id="L235">        int adx = Math.abs(dx);</span>
-<span class="fc" id="L236">        int ady = Math.abs(dy);</span>
+<span class="fc" id="L205">        int dx = to.getFile() - from.getFile();</span>
+<span class="fc" id="L206">        int dy = to.getRank() - from.getRank();</span>
+<span class="fc" id="L207">        int adx = Math.abs(dx);</span>
+<span class="fc" id="L208">        int ady = Math.abs(dy);</span>
 
-<span class="pc bpc" id="L238" title="1 of 7 branches missed.">        switch (piece.getType()) {</span>
+<span class="pc bpc" id="L210" title="1 of 7 branches missed.">        switch (piece.getType()) {</span>
             case KING:
             case LOVER:
-<span class="fc bfc" id="L241" title="All 4 branches covered.">                return adx &lt;= 1 &amp;&amp; ady &lt;= 1;</span>
+<span class="fc bfc" id="L213" title="All 4 branches covered.">                return adx &lt;= 1 &amp;&amp; ady &lt;= 1;</span>
             case QUEEN:
-<span class="pc bpc" id="L243" title="2 of 4 branches missed.">                return isStraightOrDiagonal(dx, dy) &amp;&amp; pathClear(from, to);</span>
+<span class="pc bpc" id="L215" title="2 of 4 branches missed.">                return isStraightOrDiagonal(dx, dy) &amp;&amp; pathClear(from, to);</span>
             case ROOK:
-<span class="pc bpc" id="L245" title="1 of 4 branches missed.">                return isStraight(dx, dy) &amp;&amp; pathClear(from, to);</span>
+<span class="pc bpc" id="L217" title="1 of 4 branches missed.">                return isStraight(dx, dy) &amp;&amp; pathClear(from, to);</span>
             case BISHOP:
                 // like normal bishop but max distance 6
-<span class="fc bfc" id="L248" title="All 2 branches covered.">                if (!isDiagonal(dx, dy)) {</span>
-<span class="fc" id="L249">                    return false;</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">                if (!isDiagonal(dx, dy)) {</span>
+<span class="fc" id="L221">                    return false;</span>
                 }
-<span class="pc bpc" id="L251" title="1 of 2 branches missed.">                if (Math.max(adx, ady) &gt; 6) {</span>
-<span class="fc" id="L252">                    return false;</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">                if (Math.max(adx, ady) &gt; 6) {</span>
+<span class="fc" id="L224">                    return false;</span>
                 }
-<span class="nc" id="L254">                return pathClear(from, to);</span>
+<span class="nc" id="L226">                return pathClear(from, to);</span>
             case KNIGHT:
                 // modified knight: 3 forward / 1 sideways (only forward)
-<span class="fc bfc" id="L257" title="All 2 branches covered.">                int forward = piece.getColor() == Color.WHITE ? 1 : -1;</span>
-<span class="fc bfc" id="L258" title="All 2 branches covered.">                if (dy != 3 * forward) {</span>
-<span class="fc" id="L259">                    return false;</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">                int forward = piece.getColor() == Color.WHITE ? 1 : -1;</span>
+<span class="fc bfc" id="L230" title="All 2 branches covered.">                if (dy != 3 * forward) {</span>
+<span class="fc" id="L231">                    return false;</span>
                 }
-<span class="pc bpc" id="L261" title="1 of 2 branches missed.">                return adx == 1;</span>
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">                return adx == 1;</span>
             case PAWN:
-<span class="fc" id="L263">                return isPawnMoveAllowed(piece, from, to, isCapture);</span>
+<span class="fc" id="L235">                return isPawnMoveAllowed(piece, from, to, isCapture);</span>
             default:
-<span class="nc" id="L265">                return false;</span>
+<span class="nc" id="L237">                return false;</span>
         }
     }
 
     private boolean isPawnMoveAllowed(Piece piece, Position from, Position to, boolean isCapture) {
-<span class="pc bpc" id="L270" title="1 of 2 branches missed.">        int dir = piece.getColor() == Color.WHITE ? 1 : -1;</span>
-<span class="fc" id="L271">        int dx = to.getFile() - from.getFile();</span>
-<span class="fc" id="L272">        int dy = to.getRank() - from.getRank();</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">        int dir = piece.getColor() == Color.WHITE ? 1 : -1;</span>
+<span class="fc" id="L243">        int dx = to.getFile() - from.getFile();</span>
+<span class="fc" id="L244">        int dy = to.getRank() - from.getRank();</span>
 
-<span class="pc bpc" id="L274" title="1 of 2 branches missed.">        if (isCapture) {</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        if (isCapture) {</span>
             // diagonal capture one step
-<span class="pc bpc" id="L276" title="1 of 4 branches missed.">            return Math.abs(dx) == 1 &amp;&amp; dy == dir;</span>
+<span class="fc bfc" id="L248" title="All 4 branches covered.">            return Math.abs(dx) == 1 &amp;&amp; dy == dir;</span>
         } else {
-<span class="nc bnc" id="L278" title="All 2 branches missed.">            if (dx != 0) {</span>
-<span class="nc" id="L279">                return false;</span>
+<span class="fc bfc" id="L250" title="All 2 branches covered.">            if (dx != 0) {</span>
+<span class="fc" id="L251">                return false;</span>
             }
-<span class="nc bnc" id="L281" title="All 2 branches missed.">            if (dy == dir) {</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">            if (dy == dir) {</span>
                 // single step forward; target must be empty (checked by caller)
-<span class="nc bnc" id="L283" title="All 2 branches missed.">                return board.getPiece(to) == null;</span>
-<span class="nc bnc" id="L284" title="All 2 branches missed.">            } else if (dy == 2 * dir) {</span>
+<span class="pc bpc" id="L255" title="1 of 2 branches missed.">                return board.getPiece(to) == null;</span>
+<span class="pc bpc" id="L256" title="1 of 2 branches missed.">            } else if (dy == 2 * dir) {</span>
                 // double step from starting rank (rank 2 for white, 9 for black)
-<span class="nc bnc" id="L286" title="All 2 branches missed.">                int startRank = piece.getColor() == Color.WHITE ? 1 : 8;</span>
-<span class="nc bnc" id="L287" title="All 2 branches missed.">                if (from.getRank() != startRank) {</span>
-<span class="nc" id="L288">                    return false;</span>
+<span class="fc bfc" id="L258" title="All 2 branches covered.">                int startRank = piece.getColor() == Color.WHITE ? 1 : 8;</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">                if (from.getRank() != startRank) {</span>
+<span class="nc" id="L260">                    return false;</span>
                 }
-<span class="nc" id="L290">                int intermediateRank = from.getRank() + dir;</span>
-<span class="nc bnc" id="L291" title="All 2 branches missed.">                if (board.getPiece(new Position(from.getFile(), intermediateRank)) != null) {</span>
-<span class="nc" id="L292">                    return false;</span>
+<span class="fc" id="L262">                int intermediateRank = from.getRank() + dir;</span>
+<span class="fc bfc" id="L263" title="All 2 branches covered.">                if (board.getPiece(new Position(from.getFile(), intermediateRank)) != null) {</span>
+<span class="fc" id="L264">                    return false;</span>
                 }
-<span class="nc bnc" id="L294" title="All 2 branches missed.">                return board.getPiece(to) == null;</span>
+<span class="pc bpc" id="L266" title="1 of 2 branches missed.">                return board.getPiece(to) == null;</span>
             }
         }
-<span class="nc" id="L297">        return false;</span>
+<span class="nc" id="L269">        return false;</span>
     }
 
     private boolean isStraight(int dx, int dy) {
-<span class="pc bpc" id="L301" title="3 of 8 branches missed.">        return (dx == 0 &amp;&amp; dy != 0) || (dx != 0 &amp;&amp; dy == 0);</span>
+<span class="pc bpc" id="L273" title="3 of 8 branches missed.">        return (dx == 0 &amp;&amp; dy != 0) || (dx != 0 &amp;&amp; dy == 0);</span>
     }
 
     private boolean isDiagonal(int dx, int dy) {
-<span class="pc bpc" id="L305" title="1 of 4 branches missed.">        return Math.abs(dx) == Math.abs(dy) &amp;&amp; dx != 0;</span>
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">        return Math.abs(dx) == Math.abs(dy) &amp;&amp; dx != 0;</span>
     }
 
     private boolean isStraightOrDiagonal(int dx, int dy) {
-<span class="pc bpc" id="L309" title="3 of 4 branches missed.">        return isStraight(dx, dy) || isDiagonal(dx, dy);</span>
+<span class="pc bpc" id="L281" title="3 of 4 branches missed.">        return isStraight(dx, dy) || isDiagonal(dx, dy);</span>
     }
 
     private boolean pathClear(Position from, Position to) {
-<span class="fc" id="L313">        int dx = Integer.compare(to.getFile(), from.getFile());</span>
-<span class="fc" id="L314">        int dy = Integer.compare(to.getRank(), from.getRank());</span>
-<span class="fc" id="L315">        int file = from.getFile() + dx;</span>
-<span class="fc" id="L316">        int rank = from.getRank() + dy;</span>
-<span class="pc bpc" id="L317" title="1 of 4 branches missed.">        while (file != to.getFile() || rank != to.getRank()) {</span>
-<span class="pc bpc" id="L318" title="1 of 2 branches missed.">            if (!Board.isInside(file, rank)) {</span>
-<span class="nc" id="L319">                return false;</span>
+<span class="fc" id="L285">        int dx = Integer.compare(to.getFile(), from.getFile());</span>
+<span class="fc" id="L286">        int dy = Integer.compare(to.getRank(), from.getRank());</span>
+<span class="fc" id="L287">        int file = from.getFile() + dx;</span>
+<span class="fc" id="L288">        int rank = from.getRank() + dy;</span>
+<span class="pc bpc" id="L289" title="1 of 4 branches missed.">        while (file != to.getFile() || rank != to.getRank()) {</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">            if (!Board.isInside(file, rank)) {</span>
+<span class="nc" id="L291">                return false;</span>
             }
-<span class="fc bfc" id="L321" title="All 2 branches covered.">            if (board.getPiece(file, rank) != null) {</span>
-<span class="fc" id="L322">                return false;</span>
+<span class="fc bfc" id="L293" title="All 2 branches covered.">            if (board.getPiece(file, rank) != null) {</span>
+<span class="fc" id="L294">                return false;</span>
             }
-<span class="fc" id="L324">            file += dx;</span>
-<span class="fc" id="L325">            rank += dy;</span>
+<span class="fc" id="L296">            file += dx;</span>
+<span class="fc" id="L297">            rank += dy;</span>
         }
-<span class="fc" id="L327">        return true;</span>
+<span class="fc" id="L299">        return true;</span>
     }
 
     private boolean pathClearForAttacker(Board b, Piece piece, Position from, Position to) {
-        // For non-sliding pieces we do not need additional checks.
-<span class="pc bpc" id="L332" title="2 of 3 branches missed.">        switch (piece.getType()) {</span>
+<span class="pc bpc" id="L303" title="2 of 3 branches missed.">        switch (piece.getType()) {</span>
             case KING:
             case LOVER:
             case KNIGHT:
             case PAWN:
-<span class="nc" id="L337">                return true;</span>
+<span class="nc" id="L308">                return true;</span>
             case ROOK:
             case BISHOP:
             case QUEEN:
-<span class="fc" id="L341">                int dx = Integer.compare(to.getFile(), from.getFile());</span>
-<span class="fc" id="L342">                int dy = Integer.compare(to.getRank(), from.getRank());</span>
-<span class="fc" id="L343">                int file = from.getFile() + dx;</span>
-<span class="fc" id="L344">                int rank = from.getRank() + dy;</span>
-<span class="pc bpc" id="L345" title="1 of 4 branches missed.">                while (file != to.getFile() || rank != to.getRank()) {</span>
-<span class="pc bpc" id="L346" title="1 of 2 branches missed.">                    if (!Board.isInside(file, rank)) {</span>
-<span class="nc" id="L347">                        return false;</span>
+<span class="fc" id="L312">                int dx = Integer.compare(to.getFile(), from.getFile());</span>
+<span class="fc" id="L313">                int dy = Integer.compare(to.getRank(), from.getRank());</span>
+<span class="fc" id="L314">                int file = from.getFile() + dx;</span>
+<span class="fc" id="L315">                int rank = from.getRank() + dy;</span>
+<span class="pc bpc" id="L316" title="1 of 4 branches missed.">                while (file != to.getFile() || rank != to.getRank()) {</span>
+<span class="pc bpc" id="L317" title="1 of 2 branches missed.">                    if (!Board.isInside(file, rank)) {</span>
+<span class="nc" id="L318">                        return false;</span>
                     }
-<span class="pc bpc" id="L349" title="1 of 2 branches missed.">                    if (b.getPiece(file, rank) != null) {</span>
-<span class="nc" id="L350">                        return false;</span>
+<span class="pc bpc" id="L320" title="1 of 2 branches missed.">                    if (b.getPiece(file, rank) != null) {</span>
+<span class="nc" id="L321">                        return false;</span>
                     }
-<span class="fc" id="L352">                    file += dx;</span>
-<span class="fc" id="L353">                    rank += dy;</span>
+<span class="fc" id="L323">                    file += dx;</span>
+<span class="fc" id="L324">                    rank += dy;</span>
                 }
-<span class="fc" id="L355">                return true;</span>
+<span class="fc" id="L326">                return true;</span>
             default:
-<span class="nc" id="L357">                return false;</span>
+<span class="nc" id="L328">                return false;</span>
         }
     }
 }

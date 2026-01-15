@@ -10,23 +10,23 @@ import java.util.Scanner;
 
 <span class="nc" id="L11">public class App {</span>
     public static void main(String[] args) {
-<span class="nc" id="L13">        ChessGame game = ChessGame.newGame();</span>
-<span class="nc" id="L14">        Scanner scanner = new Scanner(System.in);</span>
+<span class="fc" id="L13">        ChessGame game = ChessGame.newGame();</span>
+<span class="fc" id="L14">        Scanner scanner = new Scanner(System.in);</span>
 
-<span class="nc" id="L16">        System.out.println(&quot;Abgeändertes Schach – 10x10&quot;);</span>
-<span class="nc" id="L17">        System.out.println(&quot;Eingabeformat: z.B. A2-A4 oder A2A4, 'quit' zum Beenden.&quot;);</span>
+<span class="fc" id="L16">        System.out.println(&quot;Abgeändertes Schach – 10x10&quot;);</span>
+<span class="fc" id="L17">        System.out.println(&quot;Eingabeformat: z.B. A2-A4 oder A2A4, 'quit' zum Beenden.&quot;);</span>
 
         while (true) {
-<span class="nc" id="L20">            System.out.println();</span>
-<span class="nc" id="L21">            System.out.println(TextBoardRenderer.render(game.getBoard()));</span>
-<span class="nc" id="L22">            System.out.println(&quot;Am Zug: &quot; + game.getActiveColor());</span>
-<span class="nc" id="L23">            System.out.print(&quot;Zug eingeben: &quot;);</span>
+<span class="fc" id="L20">            System.out.println();</span>
+<span class="fc" id="L21">            System.out.println(TextBoardRenderer.render(game.getBoard()));</span>
+<span class="fc" id="L22">            System.out.println(&quot;Am Zug: &quot; + game.getActiveColor());</span>
+<span class="fc" id="L23">            System.out.print(&quot;Zug eingeben: &quot;);</span>
 
-<span class="nc bnc" id="L25" title="All 2 branches missed.">            if (!scanner.hasNextLine()) {</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">            if (!scanner.hasNextLine()) {</span>
 <span class="nc" id="L26">                break;</span>
             }
-<span class="nc" id="L28">            String line = scanner.nextLine().trim();</span>
-<span class="nc bnc" id="L29" title="All 4 branches missed.">            if (line.equalsIgnoreCase(&quot;quit&quot;) || line.equalsIgnoreCase(&quot;exit&quot;)) {</span>
+<span class="fc" id="L28">            String line = scanner.nextLine().trim();</span>
+<span class="pc bpc" id="L29" title="3 of 4 branches missed.">            if (line.equalsIgnoreCase(&quot;quit&quot;) || line.equalsIgnoreCase(&quot;exit&quot;)) {</span>
 <span class="nc" id="L30">                break;</span>
             }
 <span class="nc bnc" id="L32" title="All 2 branches missed.">            if (line.isEmpty()) {</span>
@@ -46,7 +46,7 @@ import java.util.Scanner;
 <span class="nc" id="L46">            }</span>
 <span class="nc" id="L47">        }</span>
 
-<span class="nc" id="L49">        System.out.println(&quot;Spiel beendet.&quot;);</span>
-<span class="nc" id="L50">    }</span>
+<span class="fc" id="L49">        System.out.println(&quot;Spiel beendet.&quot;);</span>
+<span class="fc" id="L50">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

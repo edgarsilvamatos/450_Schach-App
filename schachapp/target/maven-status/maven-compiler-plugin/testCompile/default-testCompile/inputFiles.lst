@@ -1,5 +1,11 @@
 /workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/CheckDetectionTest.java
 /workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/AppTest.java
+/workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/ColorTest.java
+/workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/MoveTest.java
+/workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/PieceTest.java
+/workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/ChessGameAdditionalTest.java
 /workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/ChessGameSetupTest.java
 /workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/MoveParserTest.java
 /workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/PieceMovementTest.java
+/workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/PositionTest.java
+/workspaces/450_Schach-App/schachapp/src/test/java/com/schachapp/chess/TextBoardRendererTest.java

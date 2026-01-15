@@ -2,41 +2,35 @@
 
 import java.util.Objects;
 
-/**
- * 10x10 board representation.
- */
-<span class="fc" id="L8">public class Board {</span>
+<span class="fc" id="L5">public class Board {</span>
 
     public static final int SIZE = 10;
 
-<span class="fc" id="L12">    private final Piece[][] squares = new Piece[SIZE][SIZE]; // [file][rank]</span>
+<span class="fc" id="L9">    private final Piece[][] squares = new Piece[SIZE][SIZE];</span>
 
     public Piece getPiece(Position position) {
-<span class="fc" id="L15">        Objects.requireNonNull(position, &quot;position&quot;);</span>
-<span class="fc" id="L16">        return squares[position.getFile()][position.getRank()];</span>
+<span class="fc" id="L12">        Objects.requireNonNull(position, &quot;position&quot;);</span>
+<span class="fc" id="L13">        return squares[position.getFile()][position.getRank()];</span>
     }
 
     public void setPiece(Position position, Piece piece) {
-<span class="fc" id="L20">        Objects.requireNonNull(position, &quot;position&quot;);</span>
-<span class="fc" id="L21">        squares[position.getFile()][position.getRank()] = piece;</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L17">        Objects.requireNonNull(position, &quot;position&quot;);</span>
+<span class="fc" id="L18">        squares[position.getFile()][position.getRank()] = piece;</span>
+<span class="fc" id="L19">    }</span>
 
     public void clear(Position position) {
-<span class="fc" id="L25">        setPiece(position, null);</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L22">        setPiece(position, null);</span>
+<span class="fc" id="L23">    }</span>
 
     public static boolean isInside(int file, int rank) {
-<span class="fc" id="L29">        return Position.isOnBoard(file, rank);</span>
+<span class="fc" id="L26">        return Position.isOnBoard(file, rank);</span>
     }
 
-    /**
-     * Convenience for iteration in tests and rendering.
-     */
     public Piece getPiece(int file, int rank) {
-<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (!isInside(file, rank)) {</span>
-<span class="nc" id="L37">            throw new IllegalArgumentException(&quot;Out of bounds&quot;);</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">        if (!isInside(file, rank)) {</span>
+<span class="nc" id="L31">            throw new IllegalArgumentException(&quot;Out of bounds&quot;);</span>
         }
-<span class="fc" id="L39">        return squares[file][rank];</span>
+<span class="fc" id="L33">        return squares[file][rank];</span>
     }
 }
 

@@ -2,88 +2,81 @@
 
 import java.util.Objects;
 
-/**
- * Board coordinates on a 10x10 board.
- * Internally zero-based (file 0-9, rank 0-9).
- */
 public final class Position {
 
     public static final int BOARD_SIZE = 10;
 
-    private final int file; // 0..9 -&gt; A..J
-    private final int rank; // 0..9 -&gt; 1..10
+    private final int file;
+    private final int rank;
 
-<span class="fc" id="L16">    public Position(int file, int rank) {</span>
-<span class="pc bpc" id="L17" title="4 of 8 branches missed.">        if (file &lt; 0 || file &gt;= BOARD_SIZE || rank &lt; 0 || rank &gt;= BOARD_SIZE) {</span>
-<span class="nc" id="L18">            throw new IllegalArgumentException(&quot;Position out of bounds: &quot; + file + &quot;,&quot; + rank);</span>
+<span class="fc" id="L12">    public Position(int file, int rank) {</span>
+<span class="pc bpc" id="L13" title="4 of 8 branches missed.">        if (file &lt; 0 || file &gt;= BOARD_SIZE || rank &lt; 0 || rank &gt;= BOARD_SIZE) {</span>
+<span class="nc" id="L14">            throw new IllegalArgumentException(&quot;Position out of bounds: &quot; + file + &quot;,&quot; + rank);</span>
         }
-<span class="fc" id="L20">        this.file = file;</span>
-<span class="fc" id="L21">        this.rank = rank;</span>
-<span class="fc" id="L22">    }</span>
+<span class="fc" id="L16">        this.file = file;</span>
+<span class="fc" id="L17">        this.rank = rank;</span>
+<span class="fc" id="L18">    }</span>
 
     public int getFile() {
-<span class="fc" id="L25">        return file;</span>
+<span class="fc" id="L21">        return file;</span>
     }
 
     public int getRank() {
-<span class="fc" id="L29">        return rank;</span>
+<span class="fc" id="L25">        return rank;</span>
     }
 
     public static boolean isOnBoard(int file, int rank) {
-<span class="pc bpc" id="L33" title="4 of 8 branches missed.">        return file &gt;= 0 &amp;&amp; file &lt; BOARD_SIZE &amp;&amp; rank &gt;= 0 &amp;&amp; rank &lt; BOARD_SIZE;</span>
+<span class="pc bpc" id="L29" title="2 of 8 branches missed.">        return file &gt;= 0 &amp;&amp; file &lt; BOARD_SIZE &amp;&amp; rank &gt;= 0 &amp;&amp; rank &lt; BOARD_SIZE;</span>
     }
 
-    /**
-     * Parse algebraic coordinates like &quot;A1&quot;..&quot;J10&quot;.
-     */
     public static Position fromAlgebraic(String notation) {
-<span class="fc" id="L40">        Objects.requireNonNull(notation, &quot;notation&quot;);</span>
-<span class="fc" id="L41">        String trimmed = notation.trim().toUpperCase();</span>
-<span class="pc bpc" id="L42" title="2 of 4 branches missed.">        if (trimmed.length() &lt; 2 || trimmed.length() &gt; 3) {</span>
-<span class="nc" id="L43">            throw new IllegalArgumentException(&quot;Invalid coordinate: &quot; + notation);</span>
+<span class="fc" id="L33">        Objects.requireNonNull(notation, &quot;notation&quot;);</span>
+<span class="fc" id="L34">        String trimmed = notation.trim().toUpperCase();</span>
+<span class="pc bpc" id="L35" title="2 of 4 branches missed.">        if (trimmed.length() &lt; 2 || trimmed.length() &gt; 3) {</span>
+<span class="nc" id="L36">            throw new IllegalArgumentException(&quot;Invalid coordinate: &quot; + notation);</span>
         }
-<span class="fc" id="L45">        char fileChar = trimmed.charAt(0);</span>
-<span class="pc bpc" id="L46" title="2 of 4 branches missed.">        if (fileChar &lt; 'A' || fileChar &gt; 'J') {</span>
-<span class="nc" id="L47">            throw new IllegalArgumentException(&quot;Invalid file: &quot; + notation);</span>
+<span class="fc" id="L38">        char fileChar = trimmed.charAt(0);</span>
+<span class="pc bpc" id="L39" title="1 of 4 branches missed.">        if (fileChar &lt; 'A' || fileChar &gt; 'J') {</span>
+<span class="fc" id="L40">            throw new IllegalArgumentException(&quot;Invalid file: &quot; + notation);</span>
         }
-<span class="fc" id="L49">        int file = fileChar - 'A';</span>
-<span class="fc" id="L50">        String rankStr = trimmed.substring(1);</span>
+<span class="fc" id="L42">        int file = fileChar - 'A';</span>
+<span class="fc" id="L43">        String rankStr = trimmed.substring(1);</span>
         int rankNumeric;
         try {
-<span class="fc" id="L53">            rankNumeric = Integer.parseInt(rankStr);</span>
-<span class="nc" id="L54">        } catch (NumberFormatException ex) {</span>
-<span class="nc" id="L55">            throw new IllegalArgumentException(&quot;Invalid rank: &quot; + notation, ex);</span>
-<span class="fc" id="L56">        }</span>
-<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        if (rankNumeric &lt; 1 || rankNumeric &gt; 10) {</span>
-<span class="nc" id="L58">            throw new IllegalArgumentException(&quot;Rank out of bounds: &quot; + notation);</span>
+<span class="fc" id="L46">            rankNumeric = Integer.parseInt(rankStr);</span>
+<span class="nc" id="L47">        } catch (NumberFormatException ex) {</span>
+<span class="nc" id="L48">            throw new IllegalArgumentException(&quot;Invalid rank: &quot; + notation, ex);</span>
+<span class="fc" id="L49">        }</span>
+<span class="pc bpc" id="L50" title="1 of 4 branches missed.">        if (rankNumeric &lt; 1 || rankNumeric &gt; 10) {</span>
+<span class="fc" id="L51">            throw new IllegalArgumentException(&quot;Rank out of bounds: &quot; + notation);</span>
         }
         // convert to 0-based; rank 1 is bottom (index 0), rank 10 is top (index 9)
-<span class="fc" id="L61">        int rank = rankNumeric - 1;</span>
-<span class="fc" id="L62">        return new Position(file, rank);</span>
+<span class="fc" id="L54">        int rank = rankNumeric - 1;</span>
+<span class="fc" id="L55">        return new Position(file, rank);</span>
     }
 
     public String toAlgebraic() {
-<span class="fc" id="L66">        char fileChar = (char) ('A' + file);</span>
-<span class="fc" id="L67">        int rankNumeric = rank + 1;</span>
-<span class="fc" id="L68">        return &quot;&quot; + fileChar + rankNumeric;</span>
+<span class="fc" id="L59">        char fileChar = (char) ('A' + file);</span>
+<span class="fc" id="L60">        int rankNumeric = rank + 1;</span>
+<span class="fc" id="L61">        return &quot;&quot; + fileChar + rankNumeric;</span>
     }
 
     @Override
     public boolean equals(Object o) {
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (this == o) return true;</span>
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (!(o instanceof Position)) return false;</span>
-<span class="fc" id="L75">        Position position = (Position) o;</span>
-<span class="pc bpc" id="L76" title="1 of 4 branches missed.">        return file == position.file &amp;&amp; rank == position.rank;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        if (!(o instanceof Position)) return false;</span>
+<span class="fc" id="L68">        Position position = (Position) o;</span>
+<span class="fc bfc" id="L69" title="All 4 branches covered.">        return file == position.file &amp;&amp; rank == position.rank;</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L81">        return Objects.hash(file, rank);</span>
+<span class="fc" id="L74">        return Objects.hash(file, rank);</span>
     }
 
     @Override
     public String toString() {
-<span class="nc" id="L86">        return toAlgebraic();</span>
+<span class="fc" id="L79">        return toAlgebraic();</span>
     }
 }
 

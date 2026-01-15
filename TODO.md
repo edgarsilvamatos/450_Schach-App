@@ -14,9 +14,8 @@
 
 ## Prozess / Arbeitsweise
 
-- [ ] TDD-Workflow festlegen und konsequent anwenden (Rot–Grün–Refactor)  
-- [ ] Regeln für Pflege des TODO-Files definieren  
-  - [ ] Aktuelles Feature immer zuoberst  
+- [x] TDD-Workflow festlegen und konsequent anwenden (Rot–Grün–Refactor)  
+- [x] Regeln für Pflege des TODO-Files definieren  
   - [x] TODO-File nie komplett leer (ausser ganz am Ende)  
 - [ ] Commit-Regel: **mindestens ein Commit pro Stunde**  
 - [ ] CI-Regel: Build **mindestens einmal pro Doppelstunde** (idealerweise pro Feature)  
@@ -81,6 +80,4 @@
 
 ## Orga & Abgabe
 
-- [ ] Anforderungen und Bewertungskriterien regelmässig prüfen  
-- [ ] Finalen Stand vor Abgabe taggen (zB `v1.0`)  
 - [ ] Sicherstellen, dass Projekt bis Freitag **2026-01-16 18:00** im Git-Repository vorliegt  
