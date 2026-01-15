@@ -1,10 +1,6 @@
 package com.schachapp.chess;
 
 import java.util.Objects;
-
-/**
- * A move from one position to another.
- */
 public final class Move {
 
     private final Position from;

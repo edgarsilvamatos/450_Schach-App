@@ -8,9 +8,6 @@ import com.schachapp.chess.TextBoardRenderer;
 
 import java.util.Scanner;
 
-/**
- * Simple text-based UI for the modified chess game.
- */
 public class App {
     public static void main(String[] args) {
         ChessGame game = ChessGame.newGame();

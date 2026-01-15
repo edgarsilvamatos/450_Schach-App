@@ -1,0 +1,12 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+schachapp,com.schachapp,App,88,0,12,0,28,0,8,0,2,0
+schachapp,com.schachapp.chess,ChessGame,176,747,53,93,42,138,46,52,5,17
+schachapp,com.schachapp.chess,MoveParser,23,91,5,11,4,18,5,5,0,2
+schachapp,com.schachapp.chess,Piece,94,21,26,0,12,6,20,3,4,3
+schachapp,com.schachapp.chess,GameStatus,0,27,0,0,0,5,0,1,0,1
+schachapp,com.schachapp.chess,Color,1,21,1,1,0,4,1,2,0,2
+schachapp,com.schachapp.chess,PieceType,0,45,0,0,0,8,0,1,0,1
+schachapp,com.schachapp.chess,TextBoardRenderer,83,0,8,0,15,0,5,0,1,0
+schachapp,com.schachapp.chess,Position,59,128,17,19,8,27,19,8,2,7
+schachapp,com.schachapp.chess,Move,8,21,0,0,1,6,1,3,1,3
+schachapp,com.schachapp.chess,Board,5,55,1,1,1,12,1,6,0,6

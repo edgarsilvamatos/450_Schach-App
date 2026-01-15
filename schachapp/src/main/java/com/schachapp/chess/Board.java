@@ -2,14 +2,11 @@ package com.schachapp.chess;
 
 import java.util.Objects;
 
-/**
- * 10x10 board representation.
- */
 public class Board {
 
     public static final int SIZE = 10;
 
-    private final Piece[][] squares = new Piece[SIZE][SIZE]; // [file][rank]
+    private final Piece[][] squares = new Piece[SIZE][SIZE];
 
     public Piece getPiece(Position position) {
         Objects.requireNonNull(position, "position");
@@ -29,9 +26,6 @@ public class Board {
         return Position.isOnBoard(file, rank);
     }
 
-    /**
-     * Convenience for iteration in tests and rendering.
-     */
     public Piece getPiece(int file, int rank) {
         if (!isInside(file, rank)) {
             throw new IllegalArgumentException("Out of bounds");

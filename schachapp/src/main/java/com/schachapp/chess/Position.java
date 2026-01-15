@@ -2,16 +2,12 @@ package com.schachapp.chess;
 
 import java.util.Objects;
 
-/**
- * Board coordinates on a 10x10 board.
- * Internally zero-based (file 0-9, rank 0-9).
- */
 public final class Position {
 
     public static final int BOARD_SIZE = 10;
 
-    private final int file; // 0..9 -> A..J
-    private final int rank; // 0..9 -> 1..10
+    private final int file;
+    private final int rank;
 
     public Position(int file, int rank) {
         if (file < 0 || file >= BOARD_SIZE || rank < 0 || rank >= BOARD_SIZE) {
@@ -33,9 +29,6 @@ public final class Position {
         return file >= 0 && file < BOARD_SIZE && rank >= 0 && rank < BOARD_SIZE;
     }
 
-    /**
-     * Parse algebraic coordinates like "A1".."J10".
-     */
     public static Position fromAlgebraic(String notation) {
         Objects.requireNonNull(notation, "notation");
         String trimmed = notation.trim().toUpperCase();

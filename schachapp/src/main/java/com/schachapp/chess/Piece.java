@@ -1,10 +1,6 @@
 package com.schachapp.chess;
 
 import java.util.Objects;
-
-/**
- * Immutable representation of a piece on the board.
- */
 public final class Piece {
 
     private final Color color;
@@ -31,9 +27,6 @@ public final class Piece {
         return type == PieceType.LOVER;
     }
 
-    /**
-     * Unicode symbol used for text rendering.
-     */
     public String getUnicodeSymbol() {
         switch (type) {
             case KING:
@@ -49,7 +42,6 @@ public final class Piece {
             case PAWN:
                 return color == Color.WHITE ? "\u2659" : "\u265F";
             case LOVER:
-                // not part of standard chess unicode; use heart symbols
                 return color == Color.WHITE ? "\u2665" : "\u2661";
             default:
                 throw new IllegalStateException("Unknown type " + type);

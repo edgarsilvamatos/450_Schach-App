@@ -1,8 +1,5 @@
 package com.schachapp.chess;
 
-/**
- * Player color.
- */
 public enum Color {
     WHITE,
     BLACK;

@@ -3,10 +3,6 @@ package com.schachapp.chess;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-/**
- * Main game class encapsulating board, pieces and move validation.
- */
 public class ChessGame {
 
     private final Board board;
@@ -42,17 +38,12 @@ public class ChessGame {
         return Collections.unmodifiableList(capturedPieces);
     }
 
-    /**
-     * Execute a move if it is legal. Returns true when the move was executed.
-     */
     public boolean playMove(Move move) {
         if (!isLegalMove(move, activeColor)) {
             return false;
         }
         executeMove(move);
 
-        // update game status (simple check detection)
-        // after the move, it is the opponent's turn; if their king is in check, we mark CHECK
         activeColor = activeColor.opposite();
         if (isKingInCheck(activeColor)) {
             status = GameStatus.CHECK;
@@ -72,11 +63,7 @@ public class ChessGame {
         board.clear(move.getFrom());
     }
 
-    /**
-     * Sets up the modified rules initial position on a 10x10 board.
-     */
     private static void setupInitialPosition(Board board) {
-        // helper to create pieces
         Piece wLover = new Piece(Color.WHITE, PieceType.LOVER);
         Piece wRook = new Piece(Color.WHITE, PieceType.ROOK);
         Piece wKnight = new Piece(Color.WHITE, PieceType.KNIGHT);
@@ -93,8 +80,6 @@ public class ChessGame {
         Piece bKing = new Piece(Color.BLACK, PieceType.KING);
         Piece bPawn = new Piece(Color.BLACK, PieceType.PAWN);
 
-        // White back rank (rank 1 -> internal rank 0)
-        // Lover A1, Rook B1, Knight C1, Bishop D1, Queen E1, King F1, Bishop G1, Knight H1, Rook I1, extra Rook J1
         board.setPiece(Position.fromAlgebraic("A1"), wLover);
         board.setPiece(Position.fromAlgebraic("B1"), wRook);
         board.setPiece(Position.fromAlgebraic("C1"), wKnight);
@@ -106,13 +91,10 @@ public class ChessGame {
         board.setPiece(Position.fromAlgebraic("I1"), wRook);
         board.setPiece(Position.fromAlgebraic("J1"), wRook);
 
-        // White pawns on rank 2 (A2..J2)
         for (char file = 'A'; file <= 'J'; file++) {
             board.setPiece(Position.fromAlgebraic(file + "2"), wPawn);
         }
 
-        // Black back rank on 10th rank:
-        // extra Rook A10, Rook B10, Knight C10, Bishop D10, King E10, Queen F10, Bishop G10, Knight H10, Rook I10, Lover J10
         board.setPiece(Position.fromAlgebraic("A10"), bRook);
         board.setPiece(Position.fromAlgebraic("B10"), bRook);
         board.setPiece(Position.fromAlgebraic("C10"), bKnight);
@@ -124,16 +106,11 @@ public class ChessGame {
         board.setPiece(Position.fromAlgebraic("I10"), bRook);
         board.setPiece(Position.fromAlgebraic("J10"), bLover);
 
-        // Black pawns on rank 9 (A9..J9)
         for (char file = 'A'; file <= 'J'; file++) {
             board.setPiece(Position.fromAlgebraic(file + "9"), bPawn);
         }
     }
 
-    /**
-     * Determines whether the given move is legal for the given player,
-     * including basic movement rules and "no self-check".
-     */
     public boolean isLegalMove(Move move, Color player) {
         Position from = move.getFrom();
         Position to = move.getTo();
@@ -155,12 +132,10 @@ public class ChessGame {
             return false;
         }
 
-        // simulate move and ensure king is not in check after move
         return !leavesKingInCheck(move, player);
     }
 
     private boolean leavesKingInCheck(Move move, Color player) {
-        // copy board shallowly
         Board tmp = new Board();
         for (int file = 0; file < Board.SIZE; file++) {
             for (int rank = 0; rank < Board.SIZE; rank++) {
@@ -175,7 +150,7 @@ public class ChessGame {
 
         Position kingPos = findKing(tmp, player);
         if (kingPos == null) {
-            return false; // should not happen in a normal game
+            return false;
         }
         return isSquareAttacked(tmp, kingPos, player.opposite());
     }
@@ -200,9 +175,6 @@ public class ChessGame {
         return isSquareAttacked(board, kingPos, color.opposite());
     }
 
-    /**
-     * Convenience to check whether the player whose turn it is is currently in check.
-     */
     public boolean isActivePlayerInCheck() {
         return isKingInCheck(activeColor);
     }
@@ -328,7 +300,6 @@ public class ChessGame {
     }
 
     private boolean pathClearForAttacker(Board b, Piece piece, Position from, Position to) {
-        // For non-sliding pieces we do not need additional checks.
         switch (piece.getType()) {
             case KING:
             case LOVER:

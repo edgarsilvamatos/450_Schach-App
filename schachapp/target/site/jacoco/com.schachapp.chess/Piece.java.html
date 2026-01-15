@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Piece.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">schachapp</a> &gt; <a href="index.source.html" class="el_package">com.schachapp.chess</a> &gt; <span class="el_source">Piece.java</span></div><h1>Piece.java</h1><pre class="source lang-java linenums">package com.schachapp.chess;
+
+import java.util.Objects;
+
+/**
+ * Immutable representation of a piece on the board.
+ */
+public final class Piece {
+
+    private final Color color;
+    private final PieceType type;
+
+<span class="fc" id="L13">    public Piece(Color color, PieceType type) {</span>
+<span class="fc" id="L14">        this.color = Objects.requireNonNull(color, &quot;color&quot;);</span>
+<span class="fc" id="L15">        this.type = Objects.requireNonNull(type, &quot;type&quot;);</span>
+<span class="fc" id="L16">    }</span>
+
+    public Color getColor() {
+<span class="fc" id="L19">        return color;</span>
+    }
+
+    public PieceType getType() {
+<span class="fc" id="L23">        return type;</span>
+    }
+
+    public boolean isKing() {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        return type == PieceType.KING;</span>
+    }
+
+    public boolean isLover() {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        return type == PieceType.LOVER;</span>
+    }
+
+    /**
+     * Unicode symbol used for text rendering.
+     */
+    public String getUnicodeSymbol() {
+<span class="nc bnc" id="L38" title="All 8 branches missed.">        switch (type) {</span>
+            case KING:
+<span class="nc bnc" id="L40" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2654&quot; : &quot;\u265A&quot;;</span>
+            case QUEEN:
+<span class="nc bnc" id="L42" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2655&quot; : &quot;\u265B&quot;;</span>
+            case ROOK:
+<span class="nc bnc" id="L44" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2656&quot; : &quot;\u265C&quot;;</span>
+            case BISHOP:
+<span class="nc bnc" id="L46" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2657&quot; : &quot;\u265D&quot;;</span>
+            case KNIGHT:
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2658&quot; : &quot;\u265E&quot;;</span>
+            case PAWN:
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2659&quot; : &quot;\u265F&quot;;</span>
+            case LOVER:
+                // not part of standard chess unicode; use heart symbols
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                return color == Color.WHITE ? &quot;\u2665&quot; : &quot;\u2661&quot;;</span>
+            default:
+<span class="nc" id="L55">                throw new IllegalStateException(&quot;Unknown type &quot; + type);</span>
+        }
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L61">        return color + &quot; &quot; + type;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,12 +1,7 @@
 package com.schachapp.chess;
-
-/**
- * Simple move parser for coordinate notation like "A2-A4" or "A2 A4".
- */
 public final class MoveParser {
 
     private MoveParser() {
-        // utility
     }
 
     public static Move parse(String input) {
@@ -25,8 +20,6 @@ public final class MoveParser {
             if (normalized.length() < 4) {
                 throw new IllegalArgumentException("Move too short: " + input);
             }
-            // split in half, supports ranks 1..10
-            // we assume from and to each start with a letter
             int secondStart = findSecondCoordinateStart(normalized);
             parts = new String[] { normalized.substring(0, secondStart), normalized.substring(secondStart) };
         }

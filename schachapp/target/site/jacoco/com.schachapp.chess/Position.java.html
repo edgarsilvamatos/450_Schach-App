@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Position.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">schachapp</a> &gt; <a href="index.source.html" class="el_package">com.schachapp.chess</a> &gt; <span class="el_source">Position.java</span></div><h1>Position.java</h1><pre class="source lang-java linenums">package com.schachapp.chess;
+
+import java.util.Objects;
+
+/**
+ * Board coordinates on a 10x10 board.
+ * Internally zero-based (file 0-9, rank 0-9).
+ */
+public final class Position {
+
+    public static final int BOARD_SIZE = 10;
+
+    private final int file; // 0..9 -&gt; A..J
+    private final int rank; // 0..9 -&gt; 1..10
+
+<span class="fc" id="L16">    public Position(int file, int rank) {</span>
+<span class="pc bpc" id="L17" title="4 of 8 branches missed.">        if (file &lt; 0 || file &gt;= BOARD_SIZE || rank &lt; 0 || rank &gt;= BOARD_SIZE) {</span>
+<span class="nc" id="L18">            throw new IllegalArgumentException(&quot;Position out of bounds: &quot; + file + &quot;,&quot; + rank);</span>
+        }
+<span class="fc" id="L20">        this.file = file;</span>
+<span class="fc" id="L21">        this.rank = rank;</span>
+<span class="fc" id="L22">    }</span>
+
+    public int getFile() {
+<span class="fc" id="L25">        return file;</span>
+    }
+
+    public int getRank() {
+<span class="fc" id="L29">        return rank;</span>
+    }
+
+    public static boolean isOnBoard(int file, int rank) {
+<span class="pc bpc" id="L33" title="4 of 8 branches missed.">        return file &gt;= 0 &amp;&amp; file &lt; BOARD_SIZE &amp;&amp; rank &gt;= 0 &amp;&amp; rank &lt; BOARD_SIZE;</span>
+    }
+
+    /**
+     * Parse algebraic coordinates like &quot;A1&quot;..&quot;J10&quot;.
+     */
+    public static Position fromAlgebraic(String notation) {
+<span class="fc" id="L40">        Objects.requireNonNull(notation, &quot;notation&quot;);</span>
+<span class="fc" id="L41">        String trimmed = notation.trim().toUpperCase();</span>
+<span class="pc bpc" id="L42" title="2 of 4 branches missed.">        if (trimmed.length() &lt; 2 || trimmed.length() &gt; 3) {</span>
+<span class="nc" id="L43">            throw new IllegalArgumentException(&quot;Invalid coordinate: &quot; + notation);</span>
+        }
+<span class="fc" id="L45">        char fileChar = trimmed.charAt(0);</span>
+<span class="pc bpc" id="L46" title="2 of 4 branches missed.">        if (fileChar &lt; 'A' || fileChar &gt; 'J') {</span>
+<span class="nc" id="L47">            throw new IllegalArgumentException(&quot;Invalid file: &quot; + notation);</span>
+        }
+<span class="fc" id="L49">        int file = fileChar - 'A';</span>
+<span class="fc" id="L50">        String rankStr = trimmed.substring(1);</span>
+        int rankNumeric;
+        try {
+<span class="fc" id="L53">            rankNumeric = Integer.parseInt(rankStr);</span>
+<span class="nc" id="L54">        } catch (NumberFormatException ex) {</span>
+<span class="nc" id="L55">            throw new IllegalArgumentException(&quot;Invalid rank: &quot; + notation, ex);</span>
+<span class="fc" id="L56">        }</span>
+<span class="pc bpc" id="L57" title="2 of 4 branches missed.">        if (rankNumeric &lt; 1 || rankNumeric &gt; 10) {</span>
+<span class="nc" id="L58">            throw new IllegalArgumentException(&quot;Rank out of bounds: &quot; + notation);</span>
+        }
+        // convert to 0-based; rank 1 is bottom (index 0), rank 10 is top (index 9)
+<span class="fc" id="L61">        int rank = rankNumeric - 1;</span>
+<span class="fc" id="L62">        return new Position(file, rank);</span>
+    }
+
+    public String toAlgebraic() {
+<span class="fc" id="L66">        char fileChar = (char) ('A' + file);</span>
+<span class="fc" id="L67">        int rankNumeric = rank + 1;</span>
+<span class="fc" id="L68">        return &quot;&quot; + fileChar + rankNumeric;</span>
+    }
+
+    @Override
+    public boolean equals(Object o) {
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (!(o instanceof Position)) return false;</span>
+<span class="fc" id="L75">        Position position = (Position) o;</span>
+<span class="pc bpc" id="L76" title="1 of 4 branches missed.">        return file == position.file &amp;&amp; rank == position.rank;</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="nc" id="L81">        return Objects.hash(file, rank);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L86">        return toAlgebraic();</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
