@@ -1,0 +1,5 @@
+com/schachapp/chess/CheckDetectionTest.class
+com/schachapp/chess/PieceMovementTest.class
+com/schachapp/AppTest.class
+com/schachapp/chess/ChessGameSetupTest.class
+com/schachapp/chess/MoveParserTest.class

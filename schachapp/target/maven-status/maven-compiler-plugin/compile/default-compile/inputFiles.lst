@@ -1,0 +1,11 @@
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/MoveParser.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/PieceType.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/Board.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/GameStatus.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/Position.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/Move.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/Piece.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/ChessGame.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/TextBoardRenderer.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/chess/Color.java
+/workspaces/450_Schach-App/schachapp/src/main/java/com/schachapp/App.java

@@ -1,0 +1,13 @@
+com/schachapp/chess/TextBoardRenderer.class
+com/schachapp/chess/GameStatus.class
+com/schachapp/chess/Move.class
+com/schachapp/chess/MoveParser.class
+com/schachapp/chess/ChessGame$1.class
+com/schachapp/chess/Piece.class
+com/schachapp/chess/Position.class
+com/schachapp/chess/Board.class
+com/schachapp/chess/ChessGame.class
+com/schachapp/chess/Piece$1.class
+com/schachapp/chess/PieceType.class
+com/schachapp/App.class
+com/schachapp/chess/Color.class

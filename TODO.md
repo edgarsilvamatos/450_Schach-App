@@ -7,9 +7,9 @@
 - [x] Java-/Build-Umgebung einrichten (JDK, Build-Tool)  
 - [x] CI/CD-Pipeline einrichten 
 - [x] CI so konfigurieren, dass Build **on push** und **on pull request** läuft  
-- [ ] JaCoCo ins Projekt einbinden  
-- [ ] JaCoCo im CI-Build konfigurieren  
-- [ ] JaCoCo-Report als CI-Artefakt hochladen  
+- [x] JaCoCo ins Projekt einbinden  
+- [x] JaCoCo im CI-Build konfigurieren  
+- [x] JaCoCo-Report als CI-Artefakt hochladen  
 - [x] `TODO.md` (oder `TODO.txt`) im Root-Verzeichnis anlegen  
 
 ## Prozess / Arbeitsweise
@@ -23,53 +23,53 @@
 - [x] Branch-Strategie definieren (zB Feature-Branches, `main` baut immer)  
 
 ## Domäne & Grundarchitektur
- 
-- [ ] Repräsentation des Spielzustands (Spieler am Zug, Status Schach, ...)  
-- [ ] Schnittstelle für **Eingabe von Zügen** definieren  
-- [ ] Schnittstelle für **Ausgabe des Spielstands** definieren (Textboard mit Unicode-Symbolen)  
+
+- [x] Repräsentation des Spielzustands (Spieler am Zug, Status Schach, ...)  
+- [x] Schnittstelle für **Eingabe von Zügen** definieren  
+- [x] Schnittstelle für **Ausgabe des Spielstands** definieren (Textboard mit Unicode-Symbolen)  
 
 ## Regelanpassungen modellieren
 
-- [ ] Startaufstellung für 10x10-Feld definieren (links-rechts-zentriert, oben/unten am Rand)  
+- [x] Startaufstellung für 10x10-Feld definieren (links-rechts-zentriert, oben/unten am Rand)  
 
 ### Bewegungsregeln
 
-- [ ] König: normale König-Bewegung  
-- [ ] Lover: wie der König
-- [ ] Dame: wie normal, explizit bis zu 10 Felder in alle Richtungen  
-- [ ] Läufer: max. **6 Felder** diagonal pro Zug  
-- [ ] Springer: neu **3 vorwärts / 1 zur Seite** (z.B. A1 -> B4)  
-- [ ] Turm: normale Turm-Bewegung inkl. zusätzlichem Turm  
-- [ ] Bauern: normale Bauernregeln (Startzug/Sonderregeln festlegen)  
+- [x] König: normale König-Bewegung  
+- [x] Lover: wie der König
+- [x] Dame: wie normal, explizit bis zu 10 Felder in alle Richtungen  
+- [x] Läufer: max. **6 Felder** diagonal pro Zug  
+- [x] Springer: neu **3 vorwärts / 1 zur Seite** (z.B. A1 -> B4)  
+- [x] Turm: normale Turm-Bewegung inkl. zusätzlichem Turm  
+- [x] Bauern: normale Bauernregeln (Startzug/Sonderregeln festlegen)  
 
 ## Muss-Features (mit TDD implementieren)
 
-- [ ] **Spielsetup (neues Spiel)**  
-  - [ ] Tests für initialen Zustand  
-  - [ ] Implementierung der Startaufstellung  
-  - [ ] Lover implementieren
+- [x] **Spielsetup (neues Spiel)**  
+  - [x] Tests für initialen Zustand  
+  - [x] Implementierung der Startaufstellung  
+  - [x] Lover implementieren
 
-- [ ] **Spielstatus tracken/anzeigen**  
-  - [ ] Textuelle Darstellung des Bretts  
-  - [ ] Anzeige, welche Farbe am Zug ist  
+- [x] **Spielstatus tracken/anzeigen**  
+  - [x] Textuelle Darstellung des Bretts  
+  - [x] Anzeige, welche Farbe am Zug ist  
 
-- [ ] **Eingabe für Spielzug**  
-  - [ ] Eingabeformat definieren (mit Schachnotation)  
-  - [ ] Parser mit Tests implementieren  
+- [x] **Eingabe für Spielzug**  
+  - [x] Eingabeformat definieren (mit Schachnotation)  
+  - [x] Parser mit Tests implementieren  
 
-- [ ] **Überprüfung, ob ein Spielzug gültig ist**  
-  - [ ] Gültigkeitsprüfung pro Figurentyp  
-  - [ ] Brettgrenzen (10x10) prüfen  
-  - [ ] Eigene Figuren nicht schlagen  
-  - [ ] Züge verbieten, die eigenen König ins Schach setzen  
+- [x] **Überprüfung, ob ein Spielzug gültig ist**  
+  - [x] Gültigkeitsprüfung pro Figurentyp  
+  - [x] Brettgrenzen (10x10) prüfen  
+  - [x] Eigene Figuren nicht schlagen  
+  - [x] Züge verbieten, die eigenen König ins Schach setzen  
 
-- [ ] **Automatische Schach-Erkennung**  
-  - [ ] Bedrohung des Königs erkennen (Lover auslassen!)
-  - [ ] Tests für verschiedene Schach-Szenarien  
+- [x] **Automatische Schach-Erkennung**  
+  - [x] Bedrohung des Königs erkennen (Lover auslassen!)
+  - [x] Tests für verschiedene Schach-Szenarien  
 
-- [ ] **Entfernung geschlagener Figuren**  
-  - [ ] Beim gültigen Zug gegnerische Figuren entfernen  
-  - [ ] Liste/Status der geschlagenen Figuren aktualisieren  
+- [x] **Entfernung geschlagener Figuren**  
+  - [x] Beim gültigen Zug gegnerische Figuren entfernen  
+  - [x] Liste/Status der geschlagenen Figuren aktualisieren  
 
 ## Tests & Qualität
 
